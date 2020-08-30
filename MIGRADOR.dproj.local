@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/08/07 21:26:32.000.500,=C:\Users\Gustavo\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/08/07 21:26:56.000.115,C:\Users\Gustavo\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\PROJETO\DELPHI\MIGRADOR\uPrincipal.pas</Transaction>
+    <Transaction>2020/08/07 21:26:56.000.115,C:\Users\Gustavo\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\PROJETO\DELPHI\MIGRADOR\uPrincipal.dfm</Transaction>
+    <Transaction>2020/08/07 21:27:01.000.741,C:\Users\Gustavo\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\PROJETO\DELPHI\MIGRADOR\MIGRADOR.dproj</Transaction>
+    <Transaction>2020/08/10 20:39:21.000.044,=C:\PROJETO\DELPHI\MIGRADOR\Unit1.pas</Transaction>
+    <Transaction>2020/08/10 20:39:50.000.412,C:\PROJETO\DELPHI\MIGRADOR\Unit1.pas=C:\PROJETO\DELPHI\MIGRADOR\Udatamodulo.pas</Transaction>
+    <Transaction>2020/08/10 20:39:50.000.412,C:\PROJETO\DELPHI\MIGRADOR\Unit1.dfm=C:\PROJETO\DELPHI\MIGRADOR\Udatamodulo.dfm</Transaction>
+    <Transaction>2020/08/28 22:39:07.000.873,C:\PROJETO\DELPHI\MIGRADOR\Udatamodulo.pas=</Transaction>
+  </Transactions>
+</BorlandProject>
