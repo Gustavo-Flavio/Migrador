@@ -11,25 +11,36 @@ uses
   FireDAC.Comp.Client, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.BatchMove.SQL,
   FireDAC.Comp.BatchMove, FireDAC.Comp.BatchMove.DataSet, FireDAC.Comp.UI,
-  Vcl.StdCtrls;
+  Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ExtCtrls;
 
 type
   TFrmPrincipal = class(TForm)
     EdtbdOrigem: TEdit;
     EdtbdDestino: TEdit;
-    CheckBox1: TCheckBox;
-    Button1: TButton;
-    Memo1: TMemo;
-    Sqlcliente: TFDQuery;
-    conexaoold: TFDConnection;
-    FDQuery2: TFDQuery;
-    conexaonew: TFDConnection;
     FDPhysFBDriverLink1: TFDPhysFBDriverLink;
-    FDBatchMoveSQLReader1: TFDBatchMoveSQLReader;
-    FDBatchMoveSQLWriter1: TFDBatchMoveSQLWriter;
     FDGUIxWaitCursor1: TFDGUIxWaitCursor;
-    FDTransaction1: TFDTransaction;
-    procedure Button1Click(Sender: TObject);
+    DBGrid1: TDBGrid;
+    FDQuery1: TFDQuery;
+    FDConnection1: TFDConnection;
+    DataSource1: TDataSource;
+    Panel1: TPanel;
+    FDQuery2: TFDQuery;
+    FDConnection2: TFDConnection;
+    DataSource2: TDataSource;
+    DBGrid2: TDBGrid;
+    BtnCopiar: TButton;
+    FDQuery1IDCLIENTE: TIntegerField;
+    FDQuery1DOCTOCLIENTE: TStringField;
+    FDQuery1NOMECLIENTE: TStringField;
+    FDQuery1TELEFONES: TStringField;
+    FDQuery2IDCLIENTE: TIntegerField;
+    FDQuery2DOCTOCLIENTE: TStringField;
+    FDQuery2NOMECLIENTE: TStringField;
+    FDQuery2TELEFONES: TStringField;
+    Memo1: TMemo;
+    procedure BtnCopiarClick(Sender: TObject);
+
+
   private
     { Private declarations }
   public
@@ -43,59 +54,26 @@ implementation
 
 {$R *.dfm}
 
-procedure TFrmPrincipal.Button1Click(Sender: TObject);
-var
-  //conexaonew:TFDConnection;
-  SQLTransaction2 : TFDTransaction;
-  //sqlcliente:TFDQuery;
+procedure TFrmPrincipal.BtnCopiarClick(Sender: TObject);
 begin
-    if conexaonew.Connected = true then
-    begin
-       conexaonew.Connected := false;
-    end;
-    if conexaoold.Connected = true then
-    begin
-       conexaoold.Connected := false;
-    end;
+ while(not  FDQuery1.eof) do
  begin
-   if CheckBox1.Checked = true then
- begin
-   conexaonew :=TFDConnection.Create(nil);
-   //SQLTransaction2:=TFDTransaction.Create(nil);
-   conexaonew.Params.DriverID :='FB';
-   conexaonew.Params.UserName :='sysdba';
-   conexaonew.Params.Password :='masterkey';
-   conexaonew.Params.Database :=EdtbdDestino.text;
-   sqlcliente :=TFDQuery.Create(nil);
-   sqlcliente.Connection :=conexaonew;
- with sqlcliente do
+   FDQuery2.Close;
+   FDQuery2.SQL.Text:='INSERT INTO CLIENTE(IDCLIENTE,DOCTOCLIENTE,NOMECLIENTE,TELEFONES )' +
+                      'VALUES('+IntToStr(FDQuery1IDCLIENTE.AsInteger)+','
+                      +QuotedStr(FDQuery1DOCTOCLIENTE.AsString)+','
+                      +QuotedStr(FDQuery1NOMECLIENTE.AsString)+','
+                      +QuotedStr(FDQuery1TELEFONES.AsString)+')';
+//                      +'WHERE NOT EXISTS( SELECT FIRST 1 FROM CLIENTES WHERE  DOCTOCLIENTE=DOCTOCLIENTE ))' ;
 
 
-    SQL.text:='Insert into conexaonew.database.cliente(IDCLIENTE,NOMECLIENTE,TELEFONES)'  +
-               ' Select IDCLIENTE, NOMECLIENTE, TELEFONE From EdtbdOrigem.cliente'  +
-                'where IDCLIENTE= IDCLIENTE + 1';
+   FDQuery2.ExecSQL;
+   FDQuery1.Next;
+   //Memo1.Lines.Text:=FDQuery2.SQL.Text;
 
-   {sqlcliente.Edit;
-   sqlcliente.Post;
-   //sqlcliente.UpdateTransaction:=upwhereall;
-   sqlcliente.ApplyUpdates;
-   SQLTransaction2.Commit;
-   sqlcliente.free;
-   SQLTransaction2.Free;
-   sqlcliente.Free; }
-                Sqlcliente.ExecSQL;
-                Memo1.Lines.Add(sqlcliente.Text)
-end;
-end;
+ end;
+
 end;
 
-
-
-{IBQuery1.SQL.Clear;
-  IBQuery1.SQL.Text:='insert into arquivo2 (Nome, valor) '+
-                    'select Nome, valor '+
-                    'from arquivo1 WHERE id = 3';
-  IBQuery1.ExecSql;
-end;}
 
 end.
